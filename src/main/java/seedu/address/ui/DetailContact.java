@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class DetailContact extends UiPart<Region> {
 
-    private static final String FXML = "MemberListDetails.fxml";
+    private static final String FXML = "MemberDetails.fxml";
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     @javafx.fxml.FXML
