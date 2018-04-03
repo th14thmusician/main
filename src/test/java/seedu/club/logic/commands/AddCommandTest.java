@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -17,9 +18,11 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.club.commons.exceptions.PhotoReadException;
 import seedu.club.logic.CommandHistory;
 import seedu.club.logic.UndoRedoStack;
 import seedu.club.logic.commands.exceptions.CommandException;
+import seedu.club.logic.commands.exceptions.IllegalExecutionException;
 import seedu.club.model.ClubBook;
 import seedu.club.model.Model;
 import seedu.club.model.ReadOnlyClubBook;
@@ -29,6 +32,7 @@ import seedu.club.model.email.Subject;
 import seedu.club.model.group.Group;
 import seedu.club.model.group.exceptions.GroupNotFoundException;
 import seedu.club.model.member.Member;
+import seedu.club.model.member.Name;
 import seedu.club.model.member.exceptions.DuplicateMemberException;
 import seedu.club.model.member.exceptions.MemberNotFoundException;
 import seedu.club.model.poll.Poll;
@@ -40,6 +44,7 @@ import seedu.club.model.task.Task;
 import seedu.club.model.task.exceptions.DuplicateTaskException;
 import seedu.club.model.task.exceptions.TaskCannotBeDeletedException;
 import seedu.club.model.task.exceptions.TaskNotFoundException;
+import seedu.club.model.task.exceptions.TasksAlreadyListedException;
 import seedu.club.model.task.exceptions.TasksCannotBeDisplayedException;
 import seedu.club.testutil.MemberBuilder;
 
@@ -126,6 +131,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void viewMyTasks() throws TasksAlreadyListedException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void assignTask(Task toAdd, Name name) throws MemberNotFoundException, DuplicateTaskException,
+                IllegalExecutionException {
+            fail("This method should not be called");
+        }
+
+        @Override
         public void addMember(Member member) throws DuplicateMemberException {
             fail("This method should not be called.");
         }
@@ -146,9 +162,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean addProfilePhoto(String originalPhotoPath) {
+        public void addProfilePhoto(String originalPhotoPath) throws PhotoReadException {
             fail("This method should not be called.");
-            return false;
         }
 
         @Override
@@ -238,9 +253,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean exportClubConnect(File exportFilePath) {
+        public void exportClubConnectMembers(File exportFilePath) throws IOException {
             fail("This method should not be called");
-            return false;
         }
 
         @Override
@@ -257,6 +271,12 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
+            fail("This method should not be called");
+            return;
+        }
+
+        @Override
+        public void signUpMember(Member member) {
             fail("This method should not be called");
             return;
         }
