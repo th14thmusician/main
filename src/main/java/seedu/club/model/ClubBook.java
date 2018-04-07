@@ -96,6 +96,11 @@ public class ClubBook implements ReadOnlyClubBook {
         List<Member> syncedMemberList = newData.getMemberList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
+        if (newData.getLogInMember() != null) {
+            setLogInMember(newData.getLogInMember());
+        } else {
+            setLogInMember(null);
+        }
 
         try {
             setMembers(syncedMemberList);
@@ -327,6 +332,16 @@ public class ClubBook implements ReadOnlyClubBook {
 
     public void setTasks(Set<Task> tasks) {
         this.tasks.setTasks(tasks);
+    }
+
+    @Override
+    public void setLogInMember(Member target) {
+        members.setCurrentlyLogInMember(target);
+    }
+
+    @Override
+    public Member getLogInMember() {
+        return members.getCurrentlyLogInMember();
     }
     //@@author
 

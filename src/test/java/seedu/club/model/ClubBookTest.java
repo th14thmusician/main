@@ -337,6 +337,16 @@ public class ClubBookTest {
         public void setTasks(Set<Task> tasks) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void setLogInMember(Member target) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public Member getLogInMember() {
+            return null;
+        }
     }
 
 }
